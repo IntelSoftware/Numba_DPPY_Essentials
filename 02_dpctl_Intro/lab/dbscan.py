@@ -13,8 +13,7 @@ def dbscan():
     X = np.array([[1., 2.], [2., 2.], [2., 3.],
                   [8., 7.], [8., 8.], [25., 80.]], dtype=np.float32)
     # Move data to device memory
-    x_device = dpctl.tensor.from_numpy(X, usm_type = 'device', 
-                                       queue=dpctl.SyclQueue("gpu"))
+    x_device = dpctl.tensor.from_numpy(X, usm_type = 'device')
     # DBSCAN run on the device and result lables also locate in the device memory
     labels_device = DBSCAN(eps=3, min_samples=2).fit_predict(x_device)
     # results can be used in another algorithms or explicitly copied to the host and accessed for output
